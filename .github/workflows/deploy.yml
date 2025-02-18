@@ -1,0 +1,24 @@
+name: Run Bash Script on DigitalOcean Droplet after Merge
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Bash Script on DigitalOcean Droplet
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: "157.245.98.159"
+          username: "root"
+          port: "22"
+          key: ${{ secrets.DROPLET_SSH_PRIVATE_KEY }}
+          script: whoami

@@ -1,0 +1,1 @@
+Hi {{first_name}}, We have received payment. Your upcoming appointment with Atlas Chiropractic - {{clinic_name}} is confirmed. We will send you the appointment details shortly!

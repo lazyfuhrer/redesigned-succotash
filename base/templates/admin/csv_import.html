@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <h1>Import CSV</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+      {{ form.model_choice.label_tag }} {{ form.model_choice }}
+    </div>
+    <div>
+      {{ form.csv_file.label_tag }} {{ form.csv_file }}
+    </div>
+    <div>
+      <input type="submit" value="Import">
+    </div>
+  </form>
+{% endblock %}
+
+<!-- After the form -->
+<p>
+    <strong>Download Sample Template:</strong>
+    <select id="templateChoice">
+        {% for label, name in form.model_choice.field.choices %}
+            <option value="{{ label }}">{{ name }}</option>
+        {% endfor %}
+    </select>
+    <a href="#" id="downloadLink">Download</a>
+</p>
+
+<script>
+    document.getElementById("downloadLink").addEventListener("click", function() {
+        const selectedModel = document.getElementById("templateChoice").value;
+        window.location.href = "?template=" + selectedModel;
+    });
+</script>

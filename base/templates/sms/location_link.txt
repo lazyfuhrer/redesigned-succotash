@@ -1,0 +1,1 @@
+Hi {{first_name}}, Please find the Location: {{clinic_link}} for your upcoming appointment with Atlas Chiropractic - {{clinic_name}}

@@ -1,0 +1,142 @@
+<html>
+<head>
+    <style>
+        @page {
+            margin: 10px;
+            padding: 10px;
+            size: A4;
+
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+            margin: 0;
+            font-weight: normal;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            color: #357a75;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            padding-bottom: 6px;
+            margin-bottom: 0;
+            color: #071947;
+        }
+
+        .tablecontent {
+            font-size: 0.90rem;
+            padding: 5px;
+        }
+
+        h4 {
+            font-size: 15px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        table, th, td {
+            padding: 0;
+            margin: 0;
+            border: 1px solid #c9c9c9;
+            border-collapse: collapse;
+        }
+
+        .headbg {
+            background: #ccc;
+            font-weight: bold;
+            padding: 5px;
+            font-size: 8px;
+        }
+
+        .tablecontent {
+            font-size: 8px;
+            padding: 5px;
+        }
+
+       .summery-table td{
+            border: 0px;
+            padding: 5px;
+        }
+        .summery-table th {
+            border: 0;
+            font-weight: bold;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Atlas Chiropractic & Wellness {{ clinic_location }}</h1>
+<h4>{{ today }}, by {{ user.first_name }} {{ user.last_name }}</h4>
+<h4>Report Type: Income</h4>
+<h4>Date From: {{ from_date }}, Date Till: {{ to_date }}</h4>
+
+<h3>Summary</h3>
+<table border="0" class="summery-table">
+    <tr>
+        <th>Cost (INR)</th>
+        <th>Discount (INR)</th>
+        <th>Income after Discount (INR)</th>
+        <th>Tax (INR)</th>
+        <th>Invoice Amount (INR)</th>
+    </tr>
+    <tr>
+        <td>{{ summery.cost }}</td>
+        <td>{{ summery.discount }}</td>
+        <td>{{ summery.income_after_discount }}</td>
+        <td>{{ summery.tax }}</td>
+        <td>{{ summery.invoice_amount }}</td>
+    </tr>
+</table>
+
+
+<h2>Details</h2>
+<table border="1" style="width: 100%" cellpadding="0" cellspacing="0">
+    <tr>
+        <th class="headbg">Sl No.</th>
+        <th class="headbg">Date</th>
+        <th class="headbg">Invoice<br/>Number</th>
+        <th class="headbg">Doctor</th>
+        <th class="headbg">Patient</th>
+        <th class="headbg">Procedures</th>
+        <th class="headbg">Cost (INR)</th>
+        <th class="headbg">Discount (INR)</th>
+        <th class="headbg">Tax (INR)</th>
+        <th class="headbg">Invoice<br/>Amount (INR)</th>
+        <th class="headbg">Amount<br/>Paid(INR)</th>
+    </tr>
+    {% for invoice in details %}
+        <tr style="border-bottom: 1px solid #ccc; margin-top: 5px;">
+            <td class="tablecontent">{{ invoice.sl_no }}</td>
+            <td class="tablecontent">{{ invoice.date }}</td>
+            <td class="tablecontent">INV{{ invoice.invoice_number }}</td>
+            <td class="tablecontent">{{ invoice.doctor_name }}</td>
+            <td class="tablecontent">{{ invoice.patient_name }}</td>
+            <td class="tablecontent">{{ invoice.procedure_names }}</td>
+            <td class="tablecontent">{{ invoice.cost }}</td>
+            <td class="tablecontent">{{ invoice.discount }}</td>
+            <td class="tablecontent">{{ invoice.tax }}</td>
+            <td class="tablecontent">{{ invoice.grand_total }}</td>
+            <td class="tablecontent">{{ invoice.paid_amount }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+Hi {{ first_name }} , Your appointment has been confirmed at Atlas Chiropractic - {{ clinic_location }} on {{ booked_date }} .

@@ -1,0 +1,1 @@
+Hi {{first_name}}, Here is your confirmation code {{otp_code}} Regards Atlas Chiropractic %26 Wellness

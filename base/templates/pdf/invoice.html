@@ -1,0 +1,273 @@
+<html>
+<head>
+    <style type="text/css">
+        @page {
+            margin: 10px;
+            padding: 10px;
+            size: A4;
+
+        }
+
+        html, body {
+            font-family: Arial, Helvetica, sans-serif !important;
+            width: 100%;
+            margin: 0;
+            font-weight: normal;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        table, tr, td {
+            padding: 0;
+            margin: 0;
+            table-layout: fixed;
+        }
+
+        .lg-full-mx {
+            background: #fff;
+            width: 100%;
+        }
+
+        .footer {
+            height: 60px;
+            background: #fff;
+            color: #357a75;
+            bottom: -10px;
+            position: fixed;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .footer p {
+            font-weight: 400;
+            line-height: 1.334;
+            color: #357a75;
+        }
+
+
+        .text-center {
+            text-align: center;
+        }
+
+        span {
+            color: #444444;
+            font-size: 0.85rem;
+        }
+
+        span p {
+            color: #52575a;
+            font-size: 0.85rem;
+        }
+
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+            padding-bottom: 6px;
+            margin-bottom: 0;
+            color: #071947;
+        }
+
+        .pad10 p {
+            color: #0a4891;
+        }
+
+        p {
+            margin-top: 0;
+            font-size: 0.90rem;
+        }
+
+        a {
+            border: none;
+            outline: none;
+            text-decoration: none;
+        }
+
+        .headbg {
+            background: #ccc;
+            font-weight: bold;
+            padding: 5px;
+            font-size: 8px;
+        }
+
+        .tablecontent {
+            font-size: 0.90rem;
+            padding: 5px;
+        }
+
+        .copy-text {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<table class="lg-full-mx" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="text-align: center">
+            <img src="https://www.atlaschiroindia.com/atlas-logo.png" style="width: 130px">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" style="width: 100%;">
+                <tr>
+                    <td>
+                        <h2 style="color: #357a75;">Atlas Chiropractic & Wellness </h2>
+                        <h4>{{ invoice.clinic_name }},</h4>
+                        <p>{{ invoice.clinic_data.full_address }}</p>
+                    </td>
+                    <td>
+                        <p>Print Date: {% now "N j, Y" %}</p>
+                        <p>Phone: {{ invoice.clinic_data.phone_no_1 }} </p>
+                        <p>Email: {{ invoice.clinic_data.email }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: text-top;">
+                        <p>
+                            {{ invoice.patient_name }}<br>
+                            Atlas Id: {{ invoice.patient_data.atlas_id }}<br>
+                            {{ invoice.patient_data.phone_number }}<br>
+                            {{ invoice.patient_data.email }}</p>
+                    </td>
+                    <td style="vertical-align: text-top;">
+                        <p>{{ invoice.patient_data.gender }} {{ invoice.age }}<br/>
+                            Blood Group: {{ invoice.patient_data.blood_group }}<br/>
+                            {% for address in invoice.patient_data.address %}
+                                <p>{{ address.full_address }}</p>
+                            {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <hr/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
+                <tr>
+                    <td><h2 style="color: #357a75;">Payments</h2>
+                        <p style="color: #357a75;">Received with thanks, amount of {{ invoice.paid_amount }} INR
+                            towards the
+                            following</p>
+                    </td>
+                    <td align="right" style="text-align: right">
+                        {{ invoice.date }}<br/>
+                        #INV{{ invoice.invoice_number }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <!-- start Table -->
+                        <table border="1" style="width: 100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th class="headbg">#</th>
+                                <th class="headbg">Treatments & Products</th>
+                                <th class="headbg">Unit Cost INR</th>
+                                <th class="headbg">Qty</th>
+                                <th class="headbg">Discount INR</th>
+                                <th class="headbg">Total Cost INR</th>
+                            </tr>
+
+                            {% for item in invoice.items %}
+                                <tr style="border-bottom: 1px solid #ccc; margin-top: 5px;">
+                                    <td class="tablecontent">{{ forloop.counter }}</td>
+                                    <td class="tablecontent">{{ item.procedure_name }}</td>
+                                    <td class="tablecontent">{{ item.price }}</td>
+                                    <td class="tablecontent">{{ item.quantity }}</td>
+                                    <td class="tablecontent">{{ item.discount }}</td>
+                                    <td class="tablecontent">{{ item.total_after_discount }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="2" style="text-align: right; ">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="right" style="float: right;
+            max-width:50%; align-self: end; right: 0; margin-top: 50px; ">
+                <tr>
+                    <td width="140"
+                        style="padding-left:5px; border-top:1px solid #000; padding-top:10px; padding-bottom:10px;text-align: right;">
+                        Total Cost:
+                    </td>
+                    <td style="padding-right:5px; border-top:1px solid #000; text-align:right; padding-top:10px; padding-bottom:10px;">
+                        {{ invoice.grand_total }} INR
+                    </td>
+                </tr>
+                <tr>
+                    <td width="140"
+                        style="padding-left:5px; padding-top:10px; border-bottom:1px solid
+                         #000; padding-bottom:10px;text-align: right;">
+                        Total Discount:
+                    </td>
+                    <td style="padding-right:5px; text-align:right;padding-top:10px; padding-bottom:10px;
+                    border-bottom:1px solid #000;">
+                        {{ invoice.discount }} INR
+                    </td>
+                </tr>
+                <tr>
+                    <td width="140"
+                        style="padding-left:5px;  padding-top:10px; border-bottom:1px solid
+                         #000; padding-bottom:10px;text-align: right;">
+                        Grand Total:
+                    </td>
+                    <td style="padding-right:5px; border-bottom:1px solid #000; text-align:right; padding-top:10px;
+                    padding-bottom:10px;">
+                        {{ invoice.grand_total }} INR
+                    </td>
+                </tr>
+                {% for payment in invoice.payment %}
+                    <tr>
+                        <td width="140"
+                            style="text-align: right;
+                            padding-left:5px;
+                            padding-top:10px;
+                            border-bottom:1px solid #000;
+                            padding-bottom:10px;">
+                            #RCPT{{ payment.id }} -
+                        Amount received on {{ payment.collected_on }}:
+                        </td>
+                        <td style="padding-right:5px; border-bottom:1px solid #000; text-align:right; padding-top:10px; padding-bottom:10px;">
+                            {{ payment.price }} INR
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr>
+                    <td width="140" style="text-align: right; padding-left:5px; padding-top:10px; padding-bottom:10px;">
+                        <b>Balance Amount on {% now "Y-m-d" %} :</b></td>
+                    <td>
+                        <b>{{ wallet_balance }} INR</b>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<footer class="footer text-center copy-text" height="60px">
+    <p>Heal Better, Feel Better</p>
+    <p>Generated On: {% now "d F Y" %} Powered by Atlas Fuel</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html lang="eng">
+<body>
+Dear {{ full_name }},<br>
+<br>
+This email serves to confirm the changes made to your appointment
+at {{ clinic_location }}.<br>
+<br>
+{#Original Appointment Details:<br>#}
+{#<br>#}
+{#Date: [Original Appointment Date]<br>#}
+{#Time: [Original Appointment Time]<br>#}
+{#<br>#}
+Rescheduled/Canceled Appointment Details:<br>
+<br>
+Date: {{ booked_date }}<br>
+Time: {{ booked_time }}<br>
+Location: <a href="{{ clinic_map_url }}"
+             target="_blank"> {{ clinic_address }}</a><br>
+<br>
+<br>
+Your request to reschedule the appointment has been successfully processed. We
+appreciate your prompt communication and understanding.<br>
+<br>
+If you have any further inquiries, need to reschedule, or wish to book a new
+appointment, please feel free to contact us.<br>
+<br>
+Thank you for choosing Atlas Chiropractic & Wellness - {{ clinic_location }}
+- {{ clinic_phone_no }} for your healthcare needs. We look forward to serving
+you at your next appointment.<br>
+<br>
+Warm regards,<br>
+<br>
+<p>Regards,<br>Atlas Chiropractic & Wellness<br>support@atlachiroindia.com<br>+91 77606 15859</p>
+<br>
+</body>
+</html>

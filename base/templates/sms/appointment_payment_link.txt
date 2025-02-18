@@ -1,0 +1,1 @@
+Hi {{first_name}}, please pay Atlas Chiropractic and Wellness at https://atlaspay.short.gy/{{payment_link_slug}} to pre-book your appointment.

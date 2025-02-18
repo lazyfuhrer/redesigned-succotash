@@ -1,0 +1,11 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block sidebar %}
+{{ block.super }}
+
+<h2>CSV Tools</h2>
+<ul>
+    <li><a href="{% url 'import-csv' %}">Import CSV</a></li>
+</ul>
+{% endblock %}

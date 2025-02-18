@@ -1,0 +1,155 @@
+<html>
+<head>
+    <style>
+        @page {
+            margin: 10px;
+            padding: 10px;
+            size: A4;
+
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+            margin: 0;
+            font-weight: normal;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            color: #357a75;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            padding-bottom: 6px;
+            margin-bottom: 0;
+            color: #071947;
+        }
+
+        .tablecontent {
+            font-size: 0.90rem;
+            padding: 5px;
+        }
+
+        h4 {
+            font-size: 15px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        table, th, td {
+            padding: 0;
+            margin: 0;
+            border: 1px solid #c9c9c9;
+            border-collapse: collapse;
+        }
+
+        .headbg {
+            background: #ccc;
+            font-weight: bold;
+            padding: 5px;
+            font-size: 8px;
+        }
+
+        .tablecontent {
+            font-size: 8px;
+            padding: 5px;
+        }
+
+        .summery-table, .summery-table tr {
+            width: 100%;
+            border: 0px;
+        }
+
+        .summery-table td {
+            border: 0px;
+            padding: 5px;
+        }
+
+        .summery-table th {
+            border: 0;
+            font-weight: bold;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Atlas Chiropractic & Wellness {{ clinic_location }}</h1>
+<h4>{{ today }}, by {{ user.first_name }} {{ user.last_name }}</h4>
+<h4>Report Type: Payments</h4>
+<h4>Date From: {{ from_date }}, Date Till: {{ to_date }}</h4>
+
+<h3>Summary</h3>
+<table border="0" class="summery-table">
+    <tr>
+        <th>Total Payment (INR)</th>
+        <th>Total Advance Payment (INR)</th>
+    </tr>
+    <tr>
+        <td>{{ summery.total_payments }}</td>
+        <td>{{ summery.total_advance_payments }}</td>
+    </tr>
+</table>
+
+
+<h2>Details</h2>
+<table border="1" style="width: 100%" cellpadding="0" cellspacing="0">
+    <tr>
+        <th class="headbg">Sl No.</th>
+        <th class="headbg">Date</th>
+        <th class="headbg">ID</th>
+        {#        <th>Inovice Date</th>#}
+        {#        <th>Appoitment Date</th>#}
+        <th class="headbg">Doctor</th>
+        <th class="headbg">Patient</th>
+        {#        <th>Receipt Number</th>#}
+        <th class="headbg">Invoice(s)</th>
+        <th class="headbg">Invoice Date</th>
+        <th class="headbg">Treatments & Products</th>
+        <th class="headbg">Amount<br/>Paid (INR)</th>
+        <th class="headbg">Advance<br/>Amount (INR)</th>
+        <th class="headbg">Payment Type</th>
+        <th class="headbg">Transaction ID</th>
+        <th class="headbg">Transaction <br/>Status</th>
+    </tr>
+
+    {% for payment in details %}
+        <tr style="border-bottom: 1px solid #ccc; margin-top: 5px;">
+            <td class="tablecontent">{{ payment.sl_no }}</td>
+            <td class="tablecontent">{{ payment.collected_on }}</td>
+            <td class="tablecontent">RCPT{{ payment.id }}</td>
+            {#            <td>{{ invoice_date }}</td>#}
+            {#            <td>{{ appointment_date }}</td>#}
+            <td class="tablecontent">{{ payment.doctor_name }}</td>
+            <td class="tablecontent">{{ payment.patient_name }}</td>
+            {#            <td>{{ receipt_number }}</td>#}
+            <td class="tablecontent">{% if payment.invoice_number %} INV{{ payment.invoice_number }} {% endif %}</td>
+            <td class="tablecontent">{{ payment.invoice_date }}</td>
+            <td class="tablecontent">{{ payment.procedure_names }}</td>
+            <td class="tablecontent">{{ payment.price }}</td>
+            <td class="tablecontent">{{ payment.advance_amount }}</td>
+            <td class="tablecontent">{{ payment.mode }} {{ payment.type }}</td>
+            <td class="tablecontent">{{ payment.transaction_id }}</td>
+            <td class="tablecontent">{{ payment.payment_status }}</td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+    <div class="content">
+        <div id="content-main">
+            <h2>Export Data</h2>
+            <form method="post" action="{% url 'export_csv' %}">
+                {% csrf_token %}
+                {#            {{ form.as_p }}#}
+                <div>
+                    {{ form.model_choice.label_tag }} {{ form.model_choice }}
+                </div>
+                <div>
+                    {{ form.condition_field.label_tag }}
+                    {{ form.condition_field }}
+                </div>
+                <button type="submit">Export CSV</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
